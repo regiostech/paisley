@@ -7,6 +7,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:paisley/paisley.dart';
 import 'package:web_socket_channel/io.dart';
 
+/// Accepts Paisley WebSockets.
 RequestHandler paisley(
     FutureOr<Component> Function(RequestContext, ResponseContext) root,
     {String rootSelector = '#app'}) {
@@ -28,6 +29,7 @@ RequestHandler paisley(
   };
 }
 
+/// Renders a Paisley component to static HTML.
 RequestHandler paisleySsr(
     FutureOr<Component> Function(RequestContext, ResponseContext) root) {
   return (req, res) async {

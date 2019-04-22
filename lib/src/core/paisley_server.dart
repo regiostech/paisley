@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:paisley/paisley.dart';
 import 'package:json_rpc_2/json_rpc_2.dart' as json_rpc_2;
+import 'component.dart';
+import 'rpc.dart';
 
 class PaisleyServer {
   final json_rpc_2.Peer peer;

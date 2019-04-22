@@ -1,3 +1,5 @@
+/// Returns a JavaScript string that connects a WebSocket to a Paisley [endpoint], and
+/// renders content into an element with an ID equal to [rootId].
 String paisleyJS(String endpoint, String rootId) => '''
 document.addEventListener('DOMContentLoaded', function(event) { 
   var ws = new WebSocket('${endpoint}');
