@@ -2,6 +2,7 @@ String paisleyJS(String endpoint, String rootId) => '''
 document.addEventListener('DOMContentLoaded', function(event) { 
   var ws = new WebSocket('${endpoint}');
   var ids = [];
+  var backoff = 100;
   var resolvers = {};
 
   function getId() {
@@ -76,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
       ws.onclose = function () {
         ws = new WebSocket('${endpoint}');
-        initWs();
+        setTimeout(initWs, backoff);
+        backoff *= 2;
       };
   }
 
