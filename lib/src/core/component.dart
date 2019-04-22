@@ -75,6 +75,7 @@ abstract class Component {
     if (cmp._listeners.containsKey(sub.last)) {
       return await cmp._listeners[sub.last](event.data);
     } else {
+      print(cmp._listeners);
       throw ArgumentError(
           'No event listener named "${sub.last}" exists (from event "${event.name}").');
     }

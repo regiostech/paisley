@@ -30,10 +30,10 @@ class Hello extends Component {
   @override
   void afterCreate([PaisleyServer server, Map<String, dynamic> localStorage]) {
     if (server != null) {
+      server.eval('console.info("Hello, Paisley!!!")');
+
       listen('click', (_) async {
-        await server.eval('console.info("Hello, Paisley!!!")');
         server.pushHtml('button', 'Clicked ${++_clicks} time(s)!');
-        await server.refresh();
       });
     }
   }

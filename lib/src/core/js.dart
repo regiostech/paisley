@@ -3,6 +3,7 @@
 String paisleyJS(String endpoint, String rootId) => '''
 document.addEventListener('DOMContentLoaded', function(event) { 
   var ws = new WebSocket('${endpoint}');
+  var wsReconn;
   var ids = [];
   var backoff = 100;
   var resolvers = {};
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   function initWs() {
       ws.onopen = function() {
-        ws.onmessage = function(e) {
+          ws.onmessage = function(e) {
           var msg = JSON.parse(e.data);
           var params = msg.params || {};
 
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             if (resolver) resolve(msg.result);
           }
         };
-        
+
         ws.send(JSON.stringify({
           jsonrpc: '2.0',
           id: getId(),
@@ -78,8 +79,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
       };
 
       ws.onclose = function () {
-        ws = new WebSocket('${endpoint}');
-        setTimeout(initWs, backoff);
+        wsReconn = wsReconn || setTimeout(function() {
+          if (ws.readyState !== WebSocket.OPEN) {
+            ws = new WebSocket('${endpoint}');
+            initWs();
+            wsReconn = undefined;
+          }
+        }, backoff);
         backoff *= 2;
       };
   }
