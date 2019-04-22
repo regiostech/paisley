@@ -12,10 +12,10 @@ class PaisleyApp extends Component {
   final String Function(String) renderContainer;
 
   PaisleyApp(this.endpoint, this.root,
-      {this.rootId: 'app',
-      this.head: '',
+      {this.rootId = 'app',
+      this.head = '',
       this.beforeBody,
-      this.body: '',
+      this.body = '',
       this.renderContainer});
 
   @override

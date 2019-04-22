@@ -9,7 +9,7 @@ import 'package:web_socket_channel/io.dart';
 
 RequestHandler paisley(
     FutureOr<Component> Function(RequestContext, ResponseContext) root,
-    {String rootSelector: '#app'}) {
+    {String rootSelector = '#app'}) {
   return (req, res) async {
     if (req is HttpRequestContext &&
         WebSocketTransformer.isUpgradeRequest(req.rawRequest)) {
