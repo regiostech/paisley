@@ -34,7 +34,7 @@ class PaisleyApp extends Component {
   PaisleyApp(this.endpoint, this.root,
       {this.rootId = 'app',
       this.head = '',
-      this.beforeRoot,
+      this.beforeRoot = '',
       this.body = '',
       this.renderContainer});
 

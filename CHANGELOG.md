@@ -1,3 +1,6 @@
+# 0.1.1+2
+* `beforeRoot` defaults to `''` in `PaisleyApp`.
+
 # 0.1.1+1
 * Correct typo in README.
 
