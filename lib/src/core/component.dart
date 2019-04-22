@@ -12,7 +12,7 @@ abstract class Component {
   ///
   /// Useful for initializing resources.
   FutureOr<void> afterCreate(
-          [PaisleyServer server, Map<String, dynamic> localStorage]) =>
+          [PaisleyServer server, Map<String, String> localStorage]) =>
       null;
 
   /// Invoked just before the [server] shuts down.

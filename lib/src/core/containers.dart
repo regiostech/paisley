@@ -45,9 +45,10 @@ class PaisleyApp extends Component {
     <html>
       <head>$head</head>
       <body>
+        $beforeRoot
         ${c('<div id="$rootId">${await root.render()}</div>')}
-        $body
         <script>${paisleyJS(endpoint, rootId)}</script>
+        $body
       </body>
     </html>
     ''';

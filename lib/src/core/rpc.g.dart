@@ -73,7 +73,8 @@ class Event implements _Event {
 class Init extends _Init {
   Init(
       {Map<String, dynamic> localStorage = const {},
-      @required this.rootSelector})
+      @required this.rootSelector,
+      this.isReconnect = false})
       : this.localStorage = new Map.unmodifiable(localStorage ?? const {});
 
   @override
@@ -82,10 +83,17 @@ class Init extends _Init {
   @override
   final String rootSelector;
 
-  Init copyWith({Map<String, dynamic> localStorage, String rootSelector}) {
+  @override
+  final bool isReconnect;
+
+  Init copyWith(
+      {Map<String, dynamic> localStorage,
+      String rootSelector,
+      bool isReconnect}) {
     return new Init(
         localStorage: localStorage ?? this.localStorage,
-        rootSelector: rootSelector ?? this.rootSelector);
+        rootSelector: rootSelector ?? this.rootSelector,
+        isReconnect: isReconnect ?? this.isReconnect);
   }
 
   bool operator ==(other) {
@@ -94,17 +102,18 @@ class Init extends _Init {
                 keys: const DefaultEquality<String>(),
                 values: const DefaultEquality())
             .equals(other.localStorage, localStorage) &&
-        other.rootSelector == rootSelector;
+        other.rootSelector == rootSelector &&
+        other.isReconnect == isReconnect;
   }
 
   @override
   int get hashCode {
-    return hashObjects([localStorage, rootSelector]);
+    return hashObjects([localStorage, rootSelector, isReconnect]);
   }
 
   @override
   String toString() {
-    return "Init(localStorage=$localStorage, rootSelector=$rootSelector)";
+    return "Init(localStorage=$localStorage, rootSelector=$rootSelector, isReconnect=$isReconnect)";
   }
 
   Map<String, dynamic> toJson() {
@@ -285,7 +294,8 @@ class InitSerializer extends Codec<Init, Map> {
         localStorage: map['local_storage'] is Map
             ? (map['local_storage'] as Map).cast<String, dynamic>()
             : const {},
-        rootSelector: map['root_selector'] as String);
+        rootSelector: map['root_selector'] as String,
+        isReconnect: map['is_reconnect'] as bool ?? false);
   }
 
   static Map<String, dynamic> toMap(_Init model) {
@@ -299,17 +309,24 @@ class InitSerializer extends Codec<Init, Map> {
 
     return {
       'local_storage': model.localStorage,
-      'root_selector': model.rootSelector
+      'root_selector': model.rootSelector,
+      'is_reconnect': model.isReconnect
     };
   }
 }
 
 abstract class InitFields {
-  static const List<String> allFields = <String>[localStorage, rootSelector];
+  static const List<String> allFields = <String>[
+    localStorage,
+    rootSelector,
+    isReconnect
+  ];
 
   static const String localStorage = 'local_storage';
 
   static const String rootSelector = 'root_selector';
+
+  static const String isReconnect = 'is_reconnect';
 }
 
 const HtmlPushSerializer htmlPushSerializer = const HtmlPushSerializer();

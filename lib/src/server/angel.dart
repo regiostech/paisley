@@ -40,5 +40,6 @@ RequestHandler paisleySsr(
     res
       ..contentType = MediaType('text', 'html', {'charset': 'utf8'})
       ..write(contents);
+    await res.close();
   };
 }

@@ -28,6 +28,9 @@ abstract class _Init {
   @notNull
   String get rootSelector;
 
+  @DefaultsTo(false)
+  bool get isReconnect;
+
   @DefaultsTo({})
   Map<String, dynamic> localStorage;
 }

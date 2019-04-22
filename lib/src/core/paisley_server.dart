@@ -34,9 +34,10 @@ class PaisleyServer {
     peer.registerMethod(RpcNames.init, (json_rpc_2.Parameters params) async {
       if (!_init) {
         var init = initSerializer.decode(params.asMap);
-        await root.afterCreate(this, init.localStorage ?? {});
+        await root.afterCreate(
+            this, init.localStorage?.cast<String, String>() ?? {});
         var contents = await root.render();
-        pushHtml(init.rootSelector, contents);
+        if (init.isReconnect != true) pushHtml(init.rootSelector, contents);
         _init = true;
       }
     });

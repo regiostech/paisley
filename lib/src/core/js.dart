@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
     });
   };
 
-  function initWs() {
+  function initWs(isReconn) {
       ws.onopen = function() {
+          backoff = 100;
+          document.body.classList.remove('paisley-disconnected');
           ws.onmessage = function(e) {
           var msg = JSON.parse(e.data);
           var params = msg.params || {};
@@ -73,20 +75,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
           method: 'init',
           params: {
             local_storage: window.localStorage || {},
-            root_selector: '#$rootId'
+            root_selector: '#$rootId',
+            is_reconnect: isReconn === true
           }
         }));
       };
 
       ws.onclose = function () {
+        document.body.classList.add('paisley-disconnected');
         wsReconn = wsReconn || setTimeout(function() {
           if (ws.readyState !== WebSocket.OPEN) {
             ws = new WebSocket('${endpoint}');
-            initWs();
+            initWs(true);
             wsReconn = undefined;
           }
-        }, backoff);
+        }, backoff + (Math.random() * 1000));
         backoff *= 2;
+        if (backoff >= 32000) backoff = 100;
       };
   }
 
