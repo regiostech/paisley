@@ -1,8 +1,8 @@
 # paisley
 ![Prince - Purple Rain](prince.jpg)
 
-SPA engine that sends HTML to clients and processes
-events based on a WebSocket. Ideal for smaller apps,
+SPA engine that sends HTML to clients and handles
+events via WebSocket. Ideal for smaller apps,
 built *very* small teams (like, 1 person).
 
 Named after the :goat:, Prince Rogers Nelson's,
