@@ -35,7 +35,7 @@ exponential backoff to not spam your server).
 
 Use `Component.afterCreate` to continue running from a previous state.
 
-In addition, when Paisley disconnects, it adds the `paisly-disconnected` CSS class
+In addition, when Paisley disconnects, it adds the `paisley-disconnected` CSS class
 to `document.body`, so you can potentially show some conditional content.
 
 ## Installation
