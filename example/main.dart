@@ -28,7 +28,7 @@ class Hello extends Component {
   Hello(this.req);
 
   @override
-  void afterCreate([PaisleyServer server]) {
+  void afterCreate([PaisleyServer server, Map<String, dynamic> localStorage]) {
     if (server != null) {
       listen('click', (_) async {
         await server.eval('console.info("Hello, Paisley!!!")');

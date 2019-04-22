@@ -32,8 +32,8 @@ class PaisleyServer {
 
     peer.registerMethod(RpcNames.init, (json_rpc_2.Parameters params) async {
       if (!_init) {
-        await root.afterCreate(this);
         var init = initSerializer.decode(params.asMap);
+        await root.afterCreate(this, init.localStorage ?? {});
         var contents = await root.render();
         pushHtml(init.rootSelector, contents);
         _init = true;

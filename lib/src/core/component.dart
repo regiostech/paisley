@@ -7,7 +7,9 @@ abstract class Component {
   final Map<String, Component> _children = {};
   final Map<String, Function(dynamic)> _listeners = {};
 
-  FutureOr<void> afterCreate([PaisleyServer server]) => null;
+  FutureOr<void> afterCreate(
+          [PaisleyServer server, Map<String, dynamic> localStorage]) =>
+      null;
 
   FutureOr<void> beforeDestroy([PaisleyServer server]) => null;
 
