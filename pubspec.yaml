@@ -1,5 +1,5 @@
 name: paisley
-version: 0.0.0
+version: 0.0.0+1
 description: Home-grown server-side SPA framework for Dart.
 homepage: https://github.com/regiostech/paisley.git
 author: Tobe O <thosakwe@gmail.com>

@@ -1,5 +1,5 @@
 # paisley
-![Prince - Purple Rain](prince.jpg)
+![Prince - Purple Rain](https://github.com/regiostech/paisley/raw/master/prince.jpg)
 
 [![Pub](https://img.shields.io/pub/v/paisley.svg)](https://pub.dartlang.org/packages/paisley)
 
