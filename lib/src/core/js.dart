@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
           var msg = JSON.parse(e.data);
           var params = msg.params || {};
 
-          if (msg.method === 'html' && params.selector && params.html) {
+          if (msg.method === 'html' && ('selector' in params) && ('html' in params)) {
             document.querySelectorAll(params.selector).forEach(function(el) {
               el.innerHTML = params.html;
             });
-          } else if (('id' in msg) && msg.method === 'eval' && params.script) {
+          } else if (('id' in msg) && msg.method === 'eval' && ('script' in params)) {
             var result = eval(params.script);
             if (result === undefined) result = null;
             ws.send(JSON.stringify({

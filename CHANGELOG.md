@@ -1,3 +1,6 @@
+# 0.1.3
+* Fix handling of empty HTML pushes, etc.
+
 # 0.1.2
 * Fix `LocalStorage.setItem`.
 
