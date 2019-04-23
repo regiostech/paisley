@@ -88,6 +88,7 @@ class PaisleyLocalStorage {
   Future<void> setItem(String key, value) {
     var encodedKey = json.encode(key);
     var encodedValue = json.encode(value);
-    return _server.eval('localStorage.setItem($encodedKey, $encodedValue)');
+    return _server.eval(
+        'localStorage.setItem($encodedKey, JSON.stringify($encodedValue))');
   }
 }

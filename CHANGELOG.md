@@ -1,3 +1,6 @@
+# 0.1.2
+* Fix `LocalStorage.setItem`.
+
 # 0.1.1+3
 * Remove a stray `print` statement...
 
