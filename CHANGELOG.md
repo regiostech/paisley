@@ -1,3 +1,6 @@
+# 0.1.4
+* Register `window.paisley` and support sending notifications to the JS client.
+
 # 0.1.3
 * Fix handling of empty HTML pushes, etc.
 

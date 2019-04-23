@@ -2,7 +2,14 @@
 /// renders content into an element with an ID equal to [rootId].
 String paisleyJS(String endpoint, String rootId) => '''
 document.addEventListener('DOMContentLoaded', function(event) { 
-  var ws = new WebSocket('${endpoint}');
+  var paisleyExists = 'paisley' in window;
+
+  if (!paisleyExists) {
+    window.paisley = new EventTarget();
+  }
+
+  var paisley = window.paisley;
+  var ws = paisley.ws = new WebSocket('${endpoint}');
   var wsReconn;
   var ids = [];
   var backoff = 100;
@@ -13,10 +20,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
     ids.push(null);
     return len;
   }
-  
 
-  window.fire = function fire(name, data) {
-    ws.send(JSON.stringify({
+  window.fire = paisley.fire = function fire(name, data) {
+    paisley.ws.send(JSON.stringify({
       jsonrpc: '2.0',
       id: getId(),
       method: 'fire',
@@ -27,11 +33,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }));
   };
 
-  window.request = function request(name, data) {
+  window.request = paisley.request = function request(name, data) {
     var id = getId();
     return new Promise(function(resolve) {
       resolvers[id] = resolve;
-      ws.send(JSON.stringify({
+      paisley.ws.send(JSON.stringify({
         jsonrpc: '2.0',
         id: id,
         method: 'request',
@@ -63,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
               id: msg.id,
               result: result
             }));
+          } else if ('method' in msg) {
+            var ev = new CustomEvent(msg.method, {details: msg.params || {}});
+            window.paisley.dispatchEvent(ev);
           } else if (('id' in msg) && ('result' in msg)) {
             var resolver = resolvers[msg.id];
             if (resolver) resolve(msg.result);
@@ -85,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         document.body.classList.add('paisley-disconnected');
         wsReconn = wsReconn || setTimeout(function() {
           if (ws.readyState !== WebSocket.OPEN) {
-            ws = new WebSocket('${endpoint}');
+            ws = paisley.ws = new WebSocket('${endpoint}');
             initWs(true);
             wsReconn = undefined;
           }
