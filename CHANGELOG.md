@@ -1,3 +1,6 @@
+# 0.1.1+3
+* Remove a stray `print` statement...
+
 # 0.1.1+2
 * `beforeRoot` defaults to `''` in `PaisleyApp`.
 

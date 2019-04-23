@@ -1,5 +1,5 @@
 name: paisley
-version: 0.1.1+2
+version: 0.1.1+3
 description: SPA engine that sends HTML to clients and handles events via WebSocket.
 homepage: https://github.com/regiostech/paisley.git
 author: Tobe O <thosakwe@gmail.com>
